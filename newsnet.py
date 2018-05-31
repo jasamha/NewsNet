@@ -8,9 +8,17 @@ from flask_script import Manager, Command
 
 from app import create_app
 from config import DevelopConfig
+from flask_migrate import Migrate, MigrateCommand
+
+from models import db
 
 main_app = create_app(DevelopConfig)
 manager_start = Manager(main_app)
+db.init_app(main_app)
+# 添加迁移的命令
+# 初始化迁移对象，参数为app对象，db对象
+Migrate(main_app, db)
+manager_start.add_command('db', MigrateCommand)
 
 
 class Show(Command):
