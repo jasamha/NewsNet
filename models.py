@@ -122,17 +122,6 @@ class UserInfo(db.Model, BaseModel):
         secondaryjoin=id == tb_user_follow.c.follow_user_id
     )
 
-    class NewsComment(db.Model, BaseModel):
-        """用户评论"""
-        __tablename__ = 'news_comment'
-        id = db.Column(db.Integer, primary_key=True)
-        news_id = db.Column(db.Integer, db.ForeignKey('news_info.id'))
-        user_id = db.Column(db.Integer, db.ForeignKey('user_info.id'))
-        like_count = db.Column(db.Integer, default=0)
-        comment_id = db.Column(db.Integer, db.ForeignKey('news_comment.id'))
-        msg = db.Column(db.String(200))
-        comments = db.relationship('NewsComment', lazy='dynamic')
-
     @property
     def password(self):
         pass
@@ -143,3 +132,15 @@ class UserInfo(db.Model, BaseModel):
 
     def check_pwd(self, pwd):
         return check_password_hash(self.password_hash, pwd)
+
+
+class NewsComment(db.Model, BaseModel):
+    """用户评论"""
+    __tablename__ = 'news_comment'
+    id = db.Column(db.Integer, primary_key=True)
+    news_id = db.Column(db.Integer, db.ForeignKey('news_info.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user_info.id'))
+    like_count = db.Column(db.Integer, default=0)
+    comment_id = db.Column(db.Integer, db.ForeignKey('news_comment.id'))
+    msg = db.Column(db.String(200))
+    comments = db.relationship('NewsComment', lazy='dynamic')
