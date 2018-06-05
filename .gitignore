@@ -6,6 +6,8 @@ __pycache__/
 .idea/
 # C extensions
 *.so
+# personal note
+learnontime.md
 
 # Distribution / packaging
 .Python
@@ -19,7 +21,7 @@ lib/
 lib64/
 parts/
 sdist/
-var/
+let/
 wheels/
 *.egg-info/
 .installed.cfg
